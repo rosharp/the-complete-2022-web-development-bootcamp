@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@editorjs/editorjs": "^2.22.2"
+  }
+}
