@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@editorjs/editorjs": "^2.22.2"
+    "@editorjs/editorjs": "^2.22.2",
+    "jquery": "^3.6.0"
   }
 }
