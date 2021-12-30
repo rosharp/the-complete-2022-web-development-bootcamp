@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include("header") -%>
 
-<head>
-    <meta charset="UTF-8">
-    <title>ToDo</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-
-<body>
     <div class="box" id="heading">
         <h1>
-            <%= kindOfDay %>
+            <%= listTitle %>
         </h1>
     </div>
 
@@ -26,15 +18,12 @@
 
 
                 <form class="item" action="/" method="post">
-                    <label for="newToDo">ToDo</label>
                     <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
-                    <button type="submit">+</button>
+                    <button type="submit" name="list" value=<%= listTitle %>>+</button>
                 </form>
     </div>
 
 
 
 
-</body>
-
-</html>
+    <%- include("footer") -%>
