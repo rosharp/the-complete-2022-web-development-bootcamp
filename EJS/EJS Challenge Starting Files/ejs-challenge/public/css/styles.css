@@ -37,3 +37,12 @@
 .btn-primary {
     margin-top: 20px;
 }
+
+#title-href {
+    color: gray;
+    text-decoration: none;
+}
+
+#title-href:hover {
+    color: gray !important;
+}
