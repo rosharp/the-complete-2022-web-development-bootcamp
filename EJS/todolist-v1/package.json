@@ -1,19 +1,21 @@
 {
-  "name": "y",
+  "name": "todolist-v1",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
-  "author": "Ro Sharp",
+  "author": "",
   "license": "ISC",
+  "engines": {
+    "node": "12.18.3"
+  },
   "dependencies": {
-    "body-parser": "^1.19.1",
-    "ejs": "^3.1.6",
-    "express": "^4.17.2",
-    "lodash": "^4.17.21",
-    "mongoose": "^6.1.6"
-  }
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.17.1",
+    "lodash": "^4.17.20",
+    "mongoose": "^5.10.0"
+  },
+  "description": ""
 }

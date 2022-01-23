@@ -34,11 +34,6 @@ h1 {
   border-bottom: 0;
 }
 
-input:checked+p {
-  text-decoration: line-through;
-  text-decoration-color: #A683E3;
-}
-
 input[type="checkbox"] {
   margin: 20px;
 }
