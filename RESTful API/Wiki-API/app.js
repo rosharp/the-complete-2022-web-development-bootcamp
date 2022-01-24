@@ -19,8 +19,6 @@ mongoose.connect("mongodb://localhost:27017/WikiDB", {
   useNewUrlParser: true
 });
 
-// mongodb+srv://admin-ro:ahugun45@cluster0.phzww.mongodb.net/WikiDB?retryWrites=true&w=majority
-
 const articleSchema = {
   title: String,
   content: String,
