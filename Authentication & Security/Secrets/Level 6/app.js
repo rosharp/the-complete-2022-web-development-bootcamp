@@ -9,6 +9,7 @@ const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const FacebookStrategy = require("passport-facebook").Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 
 const app = express();
@@ -39,6 +40,8 @@ const userSchema = new mongoose.Schema({
   email: String,
   password: String,
   googleId: String,
+  facebookId: String,
+  secret: String,
 });
 
 userSchema.plugin(passportLocalMongoose);
@@ -49,12 +52,20 @@ const User = new mongoose.model("User", userSchema);
 passport.use(User.createStrategy());
 
 passport.serializeUser(function (user, done) {
-  done(null, user);
+  done(null, user.id);
 });
 
-passport.deserializeUser(function (user, done) {
-  done(null, user);
+passport.deserializeUser(function (id, done) {
+  User.findById(id, function (err, user) {
+    done(err, user);
+  });
 });
+
+//passport.deserializeUser(function (user, done) {
+//  done(null, user);
+//});
+
+//* Google *//
 
 passport.use(
   new GoogleStrategy(
@@ -78,9 +89,28 @@ passport.use(
   )
 );
 
+//* Facebook *//
+
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: process.env.CLIENT_ID_FB,
+      clientSecret: process.env.CLIENT_SECRET_FB,
+      callbackURL: "http://localhost:3000/auth/facebook/secrets",
+    },
+    function (accessToken, refreshToken, profile, cb) {
+      User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+        return cb(err, user);
+      });
+    }
+  )
+);
+
 app.get("/", function (req, res) {
   res.render("home");
 });
+
+//* Google *//
 
 app.route("/auth/google").get(
   passport.authenticate("google", {
@@ -96,6 +126,22 @@ app.get(
   }
 );
 
+//* Facebook *//
+
+app.route("/auth/facebook").get(
+  passport.authenticate("facebook", {
+    scope: ["profile"],
+  })
+);
+
+//app.get("/auth/facebook", passport.authenticate("facebook"));
+
+app.get("/auth/facebook/secrets"),
+  passport.authenticate("facebook", { failureRedirect: "/login" }),
+  function (req, res) {
+    res.redirect("/secrets");
+  };
+
 app.get("/login", function (req, res) {
   res.render("login");
 });
@@ -105,11 +151,42 @@ app.get("/register", function (req, res) {
 });
 
 app.get("/secrets", function (req, res) {
+  User.find({ secret: { $ne: null } }, function (err, foundUsers) {
+    if (err) {
+      console.log(err);
+    } else {
+      if (foundUsers) {
+        res.render("secrets", { usersWithSecrets: foundUsers });
+      }
+    }
+  });
+});
+
+app.get("/submit", function (req, res) {
   if (req.isAuthenticated()) {
-    res.render("secrets");
+    res.render("submit");
   } else {
     res.redirect("/login");
   }
+});
+
+app.post("/submit", function (req, res) {
+  const submittedSecret = req.body.secret;
+
+  //console.log(req.user.id);
+
+  User.findById(req.user.id, function (err, foundUser) {
+    if (err) {
+      console.log(err);
+    } else {
+      if (foundUser) {
+        foundUser.secret = submittedSecret;
+        foundUser.save(function () {
+          res.redirect("/secrets");
+        });
+      }
+    }
+  });
 });
 
 app.post("/register", function (req, res) {
