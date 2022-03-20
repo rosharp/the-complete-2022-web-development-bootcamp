@@ -6,3 +6,6 @@ This are files of completed tasks from Angela Yu's Web-Development Bootcamp cour
 
 * ToDo Application: https://frozen-temple-38439.herokuapp.com/
 * Newsletter: https://immense-oasis-59170.herokuapp.com/
+* Digital Watch: https://rosharp.github.io/Simple-Digital-Watch/
+* Quiz App: https://rosharp.github.io/Quiz/
+* Password Generator: https://rosharp.github.io/Another-Password-Generator/
