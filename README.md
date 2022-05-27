@@ -17,6 +17,8 @@ https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoCol
 
 Complete code of Angela Yu's Web-Development Bootcamp which I took at 2021/2022.
 
+The code contains all the required changes for each project to work. Some of the packages Angela used were updated (some of them became very different), so I had to look for workarounds. 
+
 ## Links to deployed apps
 
 * ToDo Application: https://frozen-temple-38439.herokuapp.com/
